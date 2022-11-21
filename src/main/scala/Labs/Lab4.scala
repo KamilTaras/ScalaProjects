@@ -73,9 +73,9 @@ def NOR(a: Bool, b: Bool): Bool = OR(a, b) match
 
 object Lab4 extends App {
 
-  val primes:List[Int] = findPrimes(200)
+  val primes: List[Int] = findPrimes(200)
 
-  val list:List[Int] = List(2,3,6,8,199,200)
+  val list: List[Int] = List(2, 3, 6, 8, 199, 200)
   //2
   println("\n1 task \n")
 
@@ -124,7 +124,7 @@ object Lab4 extends App {
   println(Int.toString())
 
   //sorry for dirty code
-
+  println("1")
 }
 
 /*
