@@ -16,7 +16,7 @@ case class LNode[+A](elem: A, left: () => lBT[A], right: () => lBT[A]) extends l
 def makeNode(n: Int): LNode[Int] = LNode(n, ()=> makeNode(2 * n), ()=> makeNode(2 * n + 1))
 
 object Lab5 extends App {
-//TODO: zrób mi loda xdd
+
 
   val lazyList = LazyList.from(0).take(11)
 
