@@ -19,6 +19,10 @@ def flatMap[B] (transformer: A => MyList[B]):MyList[B]
 def filter(predicate: A => Boolean):MyList[A]
 
   def ++[B >:A] (list: MyList[B]):MyList[B]
+  //hofs
+
+  def foreach(f:A => Unit): Unit
+  def sort(compare: (A,A) => Int):MyList[A]
 
 
   /*
@@ -64,6 +68,9 @@ case object Empty extends MyList[Nothing] {
   def filter(predicate: Nothing =>Boolean): MyList[Nothing] = Empty
 
   def ++[B >:Nothing](list: MyList[B]):MyList[B] = list
+
+  def foreach(f:Nothing => Unit):Unit =()
+  def sort(compare: (Nothing,Nothing) => Int) = Empty
 }
 
 class Cons[+A](h:A, t: MyList[A]) extends MyList[A]{
@@ -90,6 +97,20 @@ class Cons[+A](h:A, t: MyList[A]) extends MyList[A]{
 
   def ++[B >:A] (list: MyList[B]):MyList[B] = new Cons[B](h, t ++ list)
 
+  //hof
+  def foreach (f:A=>Unit): Unit = {
+    f(h)
+    t.foreach(f)
+  }
+
+  def sort(compare: (A,A) => Int):MyList[A] = {
+    def insert(x: A, sortedList: MyList[A]):MyList[A] =
+      if (sortedList.isEmpty()) new Cons(x, Empty)
+      else if (compare(x, sortedList.head) <= 0) new Cons(x, sortedList)
+      else new Cons(sortedList.head, insert(x,sortedList.tail))
+    val sortedTail = t.sort(compare)
+    insert(h,sortedTail)
+  }
 
 }
 
@@ -119,4 +140,7 @@ object ListTest extends App{
 //  println((listOfInt.++(anotherListOfInt)).toString)
 
   println(listOfInt.flatMap(elem => Cons(elem, Cons(elem + 1, Empty))))
+
+  listOfInt.foreach(println)
+  println(listOfInt.sort((x,y) => y - x))
 }

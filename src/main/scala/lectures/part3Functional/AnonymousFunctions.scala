@@ -33,7 +33,7 @@ object AnonymousFunctions extends App{
   /*
 
   TASKS:
-
+    TODO
   Expand MyList
   -foreach method A => Unit
   [1,2,3].foreach (x=> println(x))
